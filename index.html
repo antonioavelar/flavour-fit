@@ -7,34 +7,39 @@
 <body>
   <script>
     function renderPDF(url, canvasContainer) {
-      let options = { scale: 1 };
+      var loadingTask = pdfjsLib.getDocument('./ementa.pdf');
 
-      function renderPage(page) {
-        const viewport = page.getViewport(options.scale);
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const renderContext = {
-          canvasContext: ctx,
-          viewport: viewport
-        };
+      loadingTask.promise.then(function (pdf) {
+        console.log('PDF loaded');
 
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        // Fetch the first page
+        var pageNumber = 1;
+        pdf.getPage(pageNumber).then(function (page) {
+          console.log('Page loaded');
 
-        canvasContainer.appendChild(canvas);
+          var scale = 1.5;
+          var viewport = page.getViewport({ scale: scale });
 
-        page.render(renderContext);
-      }
+          // Prepare canvas using PDF page dimensions
+          var canvas = document.getElementById('the-canvas');
+          var context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
 
-      function renderPages(pdfDoc) {
-        for (let num = 1; num <= pdfDoc.numPages; num++)
-          pdfDoc.getPage(num).then(renderPage);
-      }
-
-      pdfjsLib.getDocument(url).then(renderPages);
-    }  
-
-    renderPDF('ementa.pdf', document.getElementById('canvas'));
+          // Render PDF page into canvas context
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          var renderTask = page.render(renderContext);
+          renderTask.promise.then(function () {
+            console.log('Page rendered');
+          });
+        });
+      }, function (reason) {
+        // PDF loading error
+        console.error(reason);
+      });
   </script>
   <canvas id="canvas"></canvas>
 </body>
