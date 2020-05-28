@@ -31,7 +31,7 @@
           pdfDoc.getPage(num).then(renderPage);
       }
 
-      pdfjsLibLib.disableWorker = true;
+      pdfjsLib.disableWorker = true;
       pdfjsLib.getDocument(url).then(renderPages);
     }  
 
