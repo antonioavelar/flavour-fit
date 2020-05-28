@@ -24,7 +24,7 @@
     loadingTask.promise.then(function (pdf) {
       console.log('PDF loaded');
 
-      for (let pageNumber = 1; pageNumber < pdf.numPages; pageNumber++) {
+      for (let pageNumber = 0; pageNumber <= pdf.numPages; pageNumber++) {
 
 
         pdf.getPage(pageNumber).then(function (page) {
