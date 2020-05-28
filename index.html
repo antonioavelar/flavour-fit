@@ -5,10 +5,11 @@
 </head>
 
 <body>
+  <div id="canvas-container"></div>
   <script>
     var loadingTask = pdfjsLib.getDocument('./ementa.pdf');
     const container = document.getElementById('canvas-container')
-    
+
     loadingTask.promise.then(function (pdf) {
       console.log('PDF loaded');
 
@@ -47,7 +48,6 @@
     });
 
   </script>
-  <div id="canvas-container"></div>
 </body>
 
 </html>
