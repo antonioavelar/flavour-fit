@@ -31,7 +31,7 @@
           pdfDoc.getPage(num).then(renderPage);
       }
 
-      PDFJS.getDocument(url).then(renderPages);
+      pdfjsLib.getDocument(url).then(renderPages);
     }  
 
     renderPDF('ementa.pdf', document.getElementById('canvas'));
