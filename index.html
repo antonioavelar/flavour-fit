@@ -12,9 +12,6 @@
     loadingTask.promise.then(function (pdf) {
       console.log('PDF loaded');
 
-      // Fetch the first page
-      var pageNumber = 1;
-
       for (let pageNumber = 1; pageNumber < pdf.numPages; pageNumber++) {
 
 
