@@ -31,8 +31,8 @@
           pdfDoc.getPage(num).then(renderPage);
       }
 
-      PDFJS.disableWorker = true;
-      PDFJS.getDocument(url).then(renderPages);
+      pdfjsLibLib.disableWorker = true;
+      pdfjsLib.getDocument(url).then(renderPages);
     }  
 
     renderPDF('ementa.pdf');
