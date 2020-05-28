@@ -6,8 +6,8 @@
 
 <body>
   <script>
-    function renderPDF(url, canvasContainer) {
-      let options = { scale: 1 };
+    function renderPDF(url, canvasContainer, options) {
+      let options = options || { scale: 1 };
 
       function renderPage(page) {
         const viewport = page.getViewport(options.scale);
@@ -31,12 +31,12 @@
           pdfDoc.getPage(num).then(renderPage);
       }
 
-      pdfjsLib.disableWorker = true;
-      pdfjsLib.getDocument(url).then(renderPages);
+      PDFJS.getDocument(url).then(renderPages);
     }  
 
-    renderPDF('ementa.pdf');
+    renderPDF('ementa.pdf', document.getElementById('canvas'));
   </script>
+  <canvas id="canvas"></canvas>
 </body>
 
 </html>
